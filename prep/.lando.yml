@@ -1,0 +1,35 @@
+---
+name: Code4LibLearningAsWeGoLandoWorkshopPrep
+services:
+  rubyserver:
+    type: ruby:2.5
+    build:
+       - gem install bundler
+  phpserver:
+    type: php:5.6
+
+  pythonserver:
+    type: python:3.7
+
+  javaserver:
+    type: tomcat:8
+
+  maven:
+    type: compose
+    app_mount: delegated
+    services:
+      image: maven:3.6.3-jdk-11
+      command: tail -f /dev/null
+
+  db:
+    type: mysql:5.7
+    portforward: true
+    creds:
+      user: dba
+      password: random
+      database: not_prod
+
+tooling:
+  mvn:
+    service: javaserver
+    cmd: mvn
