@@ -51,6 +51,20 @@ which is towards the end. Or just go to the [Lando 101](https://docs.lando.dev/g
 
 There is a ton of great [documentation on Lando](https://docs.lando.dev/), it's all worth reading.
 
+## This is cool and fun, but, OMG, you filled my Hard Drive!
+
+Eh, it happens. Docker is a space hog. If you're done tinkering with Lando and/or want to slim down your Docker space usage, here are some commands that will
+throw away all the container images you've downloaded (which is safe, you'll be able to download them again if you need them):
+
+```
+docker system prune -af
+docker rm $(docker ps -a -q)
+docker rmi $(docker images -q -f dangling=true)
+```
+
+> 🛑 **warning**
+If you are in the process of creating a custom Docker image, don't run those commands above or you'll be sad.
+
 ## Contributing
 
 1. Fork it!
