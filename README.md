@@ -4,7 +4,7 @@
 
 ## Presented by
 
-Hardy Pottinger
+[Hardy Pottinger](https://github.com/hardyoyo/info)
 
 ## Abstract
 Things have gotten better: most projects know that getting new developers up to speed is important.
