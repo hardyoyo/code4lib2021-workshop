@@ -31,5 +31,5 @@ services:
 
 tooling:
   mvn:
-    service: javaserver
+    service: maven
     cmd: mvn
