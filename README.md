@@ -1,0 +1,72 @@
+# Learning as We Go: Decomposing Dev Environments with Lando
+
+## [Code4Lib 2021 Post-conference workshop, March 26, 2021 9am EST](https://2021.code4lib.org/workshops/Learning-as-We-Go-Decomposing-Dev-Environments-with-Lando)
+
+## Presented by
+
+Hardy Pottinger
+
+## Abstract
+Things have gotten better: most projects know that getting new developers up to speed is important.
+We keep notes on the hard stuff. But, typing long lists of mysterious commands, and keeping track 
+of all the details, is still something many of us expect of new collaborators. We can do better. 
+Lando is one tool that can help.
+
+Lando is a way to bootstrap a useable development environment. It's built on Docker, and is like 
+Docker-Compose, but much more transparent. It handles the boring details and helps you actually 
+start developing: with code in your favorite IDE, and all the services you need in Docker. It's 
+all about making the life of a developer easier. It won't give you an application container you 
+can deploy. But you will develop a deeper understanding of how all the pieces fit together. And 
+you'll have a tool which can deploy those pieces to dev/stage/prod if you wish.
+
+The first part of this session will be an introduction to Lando. We'll set up a MySQL database 
+and play with it. We'll build an Omeka-S webapp as a sandbox. We'll build a Django project and 
+app, and then kick off a debugger.
+
+We'll end with some live coding: the entire group will collaborate on a Lando-based development 
+environment for a project of our choosing.
+
+After completing this workshop, attendees should come away able to use Lando to build a new 
+development environment for any coding project.
+
+## Preparing for the Workshop
+
+The format of this workshop will be "keep up if you can", so following allong with the code
+is not necessary. However, if you *do* wish to follow along, here's what you'll need to do
+(preferrably before the day of the workshop).
+
+1. [install Lando](https://docs.lando.dev/basics/installation.html)
+2. clone this project
+3. cd to the prep folder and run `lando rebuild`
+
+After step 3 is completed, you will have all the required software and Docker images downloaded,
+and you'll be ready to play on March 26.
+
+## I want to start working now!
+
+Cool! Grab the slide deck (it's a work in progress) and skip to the "extra credit" slide
+which is towards the end. Or just go to the [Lando 101](https://docs.lando.dev/guides/lando-101/lando-overview.html) course and start following it.
+
+## Read the Docs!
+
+There is a ton of great [documentation on Lando](https://docs.lando.dev/), it's all worth reading.
+
+## Contributing
+
+1. Fork it!
+2. Create your feature branch: `git checkout -b my-new-feature`
+3. Commit your changes: `git commit -am 'Add some feature'`
+4. Push to the branch: `git push origin my-new-feature`
+5. Submit a pull request :D
+
+## History
+
+TODO: Write history
+
+## Credits
+
+TODO: Write credits
+
+## License
+
+TODO: Write license 
