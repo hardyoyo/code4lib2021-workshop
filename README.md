@@ -72,14 +72,9 @@ If you are in the process of creating a custom Docker image, don't run those com
 3. Commit your changes: `git commit -am 'Add some feature'`
 4. Push to the branch: `git push origin my-new-feature`
 5. Submit a pull request :D
-
-## History
-
-TODO: Write history
-
 ## Credits
 
-TODO: Write credits
+Much thanks are owed to the entire [Lando community](https://github.com/sponsors/lando), for their continued support and for sharing such a great tool with the rest of us.
 
 ## License
 
