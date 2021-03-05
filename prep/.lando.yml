@@ -5,14 +5,18 @@ services:
     type: ruby:2.5
     build:
        - gem install bundler
+    scanner: false
   phpserver:
     type: php:5.6
+    scanner: false
 
   pythonserver:
     type: python:3.7
+    scanner: false
 
   javaserver:
     type: tomcat:8
+    scanner: false
 
   maven:
     type: compose
@@ -20,6 +24,7 @@ services:
     services:
       image: maven:3.6.3-jdk-11
       command: tail -f /dev/null
+    scanner: false
 
   db:
     type: mysql:5.7
@@ -28,6 +33,7 @@ services:
       user: dba
       password: random
       database: not_prod
+      scanner: false
 
 tooling:
   mvn:
