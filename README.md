@@ -44,7 +44,7 @@ and you'll be ready to play on March 26.
 
 ## I want to start working now!
 
-Cool! Grab the [slide deck](LearningAsWeGo-DecomposingDevEnvironmentsWithLando.pptx) (it's a work in progress) and skip to the "extra credit" slide
+Cool! Grab the [slide deck](LearningAsWeGo-DecomposingDevEnvironmentsWithLando.pdf) (it's a work in progress) and skip to the "extra credit" slide
 which is towards the end. Or just go to the [Lando 101](https://docs.lando.dev/guides/lando-101/lando-overview.html) course and start following it.
 
 You might also want to look at the [Lando Cheat Sheet](LandoCheatSheet.pdf) I made, it might come in handy.
