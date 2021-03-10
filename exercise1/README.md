@@ -1,7 +1,8 @@
 # Exercise 1: MySQL
 ### Let's make a database and import a backup from prod
 
-1. starting up
+1. download a [sample database for MySQL](https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip)
+2. starting up
 ```
 cd exercise1
 lando init --full
@@ -20,6 +21,7 @@ lando init --full
 7. run a destructive query
 8. blow it all away and start from scratch
 9. enjoy your all-purpose MySQL workbench
+  - if you're rusty with MySQL, [this is a nice tutorial](https://www.mysqltutorial.org/getting-started-with-mysql/)
 
 ### Extra Credit
 * Add the [PhpMyAdmin service](https://docs.lando.dev/config/phpmyadmin.html) to this workspace
