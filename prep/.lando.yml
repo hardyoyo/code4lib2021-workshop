@@ -1,13 +1,15 @@
 ---
 name: Code4LibLearningAsWeGoLandoWorkshopPrep
+recipe: lamp
+config:
+  webroot: .
+scanner: false
+
 services:
   rubyserver:
     type: ruby:2.5
     build:
        - gem install bundler
-    scanner: false
-  phpserver:
-    type: php:5.6
     scanner: false
 
   pythonserver:
@@ -24,18 +26,21 @@ services:
     services:
       image: maven:3.6.3-jdk-11
       command: tail -f /dev/null
+    build_as_root: apt install ant
     scanner: false
 
-  db:
-    type: mysql:5.7
-    portforward: true
-    creds:
-      user: dba
-      password: random
-      database: not_prod
-      scanner: false
+  node:
+    type: node
+    build:
+      - npm install
+      - gulp
+    globals:
+      gulp-cli: latest
 
 tooling:
   mvn:
     service: maven
     cmd: mvn
+  ant:
+    service: maven
+    cmd: ant
