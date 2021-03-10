@@ -19,6 +19,7 @@ lando init --full
 6. use the `lando mysql` client tooling
 7. run a destructive query
 8. blow it all away and start from scratch
+9. enjoy your all-purpose MySQL workbench
 
 ### Extra Credit
 * Add the [PhpMyAdmin service](https://docs.lando.dev/config/phpmyadmin.html) to this workspace

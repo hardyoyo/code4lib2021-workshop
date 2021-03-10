@@ -9,7 +9,7 @@ lando init
 ❯ remote git repo or archive
 ? From where should we get your app's codebase? remote git repo or archive
 ? Please enter the URL of the git repo or tar archive containing your application code 
-https://github.com/omeka/omeka-s/releases/download/v3.0.1/omeka-s-3.0.1.zip
+  https://github.com/omeka/omeka-s/releases/download/v3.0.1/omeka-s-3.0.1.zip
 ? What recipe do you want to use? (Use arrow keys)
 ❯ lamp
 ? Where is your webroot relative to the init destination? .
