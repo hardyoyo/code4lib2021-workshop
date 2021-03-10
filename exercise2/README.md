@@ -8,13 +8,14 @@ lando init
 ? From where should we get your app's codebase? (Use arrow keys)
 ❯ remote git repo or archive
 ? From where should we get your app's codebase? remote git repo or archive
-? Please enter the URL of the git repo or tar archive containing your application code https://github.com/omeka/omeka-s/releases/download/v3.0.1/omeka-s-3.0.1.zip
+? Please enter the URL of the git repo or tar archive containing your application code 
+https://github.com/omeka/omeka-s/releases/download/v3.0.1/omeka-s-3.0.1.zip
 ? What recipe do you want to use? (Use arrow keys)
 ❯ lamp
 ? Where is your webroot relative to the init destination? .
 ? What do you want to call this app? omeka
 ```
-2. Read the install docs: https://github.com/omeka/omeka-s#installing-from-released-zip-file
+2. Read the [Omeka-S install docs](https://github.com/omeka/omeka-s#installing-from-released-zip-file)
 3. Find the credentials the recipe used:
 ```
 lando info
