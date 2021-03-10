@@ -78,6 +78,7 @@ If you are in the process of creating a custom Docker image, don't run those com
 
 Much thanks are owed to the entire [Lando community](https://github.com/sponsors/lando), for their continued support and for sharing such a great tool with the rest of us.
 
+Thanks to [MySQLtutorial.org](https://www.mysqltutorial.org/about-us/) for use of their sample database in exercise 1.
 ## License
 
 [MIT](LICENSE)
