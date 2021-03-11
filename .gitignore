@@ -1,5 +1,6 @@
 ~*.pptx
 ~*.docx
+~*.xlsx
 attendees.xlsx
 exercise1/*.zip
 exercise1/.lando.yml

@@ -26,7 +26,7 @@ services:
     services:
       image: maven:3.6.3-jdk-11
       command: tail -f /dev/null
-    build_as_root: apt install ant
+    build_as_root: apt install -y ant
     scanner: false
 
   node:
