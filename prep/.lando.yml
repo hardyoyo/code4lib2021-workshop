@@ -9,7 +9,7 @@ services:
   rubyserver:
     type: ruby:2.5
     build:
-       - gem install bundler
+      - gem install bundler
     scanner: false
 
   pythonserver:
@@ -20,27 +20,36 @@ services:
     type: tomcat:8
     scanner: false
 
-  maven:
+  java:
     type: compose
     app_mount: delegated
     services:
       image: maven:3.6.3-jdk-11
       command: tail -f /dev/null
-    build_as_root: apt install -y ant
+    build_as_root:
+      - apt-get update -qq
+      - apt install -y ant
+    overrides:
+      environment:
+        M2_HOME: "/app/.m2"
+        MAVEN_CONFIG: "/app/.m2"
+    meUser: root
     scanner: false
 
   node:
     type: node
     build:
       - npm install
-      - gulp
+      # - gulp #uncomment this if there is a gulpfile in this project, otherwise gulp won't have anything to do
     globals:
       gulp-cli: latest
+    scanner: false
+
 
 tooling:
   mvn:
-    service: maven
+    service: java
     cmd: mvn
   ant:
-    service: maven
+    service: java
     cmd: ant
