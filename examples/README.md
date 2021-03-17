@@ -5,3 +5,4 @@ These examples will serve to showcase a few patterns I use in creating working d
 ## Contents
 
 * [DSpace](./dspace/)
+* [Manifold](./manifold/) (work in progress)
