@@ -5,3 +5,6 @@ attendees.xlsx
 exercise1/*.zip
 exercise1/.lando.yml
 exercise2/.lando.yml
+examples/dspace/dspace
+examples/dspace/dspace-angular
+

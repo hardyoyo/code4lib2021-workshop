@@ -1,0 +1,123 @@
+name: dspace
+proxy:
+  apiserver:
+    - dspace-api.local.sandbox
+  frontend:
+    - dspace.local.sandbox:4000
+services:
+  # might need to change this to type: 'tomcat:custom', overrides: image 'tomcat:10' if I need a newer version of Tomcat or the JDK
+  apiserver:
+    config: {}
+    type: 'tomcat:9'
+    webroot: dspace_home
+    scanner: false
+  frontend:
+    config: {}
+    type: 'node:14'
+    build:
+      - yarn install
+    cmd:
+      - yarn start
+    webroot: dspace-angular
+    scanner: false
+    overrides:
+      ports:
+        - '4000:4000'
+      environment:
+        DSPACE_HOST: "apiserver.dspace.internal" # The host name of the angular application
+        DSPACE_PORT: "80" # The port number of the angular application
+        DSPACE_NAMESPACE: "server" # The namespace of the angular application
+        DSPACE_SSL: "false" # Whether the angular application uses SSL [true/false]
+  solr:
+    type: 'solr:8.6'
+    portforward: false
+  database:
+    config: {}
+    type: postgres
+    portforward: true
+    creds:
+      user: postgres
+      password: 
+      database: dspace
+    run_as_root:
+      - psql -U postgres dspace -c '\x' -c 'create extension pgcrypto;'
+  java:
+    type: compose
+    app_mount: delegated
+    services:
+      image: maven:3.6.3-jdk-11
+      command: tail -f /dev/null
+    build_as_root: 
+      - apt-get update -qq
+      - apt-get install -y ant
+    overrides:
+      environment:
+        M2_HOME: "/app/.m2"
+        MAVEN_CONFIG: "/app/.m2"
+    meUser: root
+    scanner: false
+
+tooling:
+  copy-solr-cores:
+    service: solr
+    cmd: cp -r /app/dspace_home/solr/* /var/solr/data/lando/data/ && echo "Solr cores copied successfully!"
+  restart-tomcat:
+    service: apiserver
+    cmd: service restart tomcat
+  catalina.sh:
+    service: apiserver
+    cmd: catalina.sh
+  mvn:
+    service: java
+    cmd: mvn
+    dir: /app/dspace
+  ant:
+    service: java
+    cmd: ant
+    dir: /app/dspace/dspace/target/dspace-installer
+  dspace:
+    service: java
+    cmd: bin/dspace
+    dir: /app/dspace_home
+  db-import <file>:
+    service: ':host'
+    description: Imports a dump file into a database service
+    cmd: /helpers/sql-import.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      no-wipe:
+        description: Do not destroy the existing database before an import
+        boolean: true
+  'db-export [file]':
+    service: ':host'
+    description: Exports database from a database service to a file
+    cmd: /helpers/sql-export.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      stdout:
+        description: Dump database to stdout
+  psql:
+    service: database
+    description: Drops into a psql shell on the database service
+    cmd: psql -U postgres
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+  yarn:
+    service: frontend
+    description: Invokes yarn on the DSpace-Angular frontend service
+    cmd: yarn
+    dir: /app/dspace-angular
