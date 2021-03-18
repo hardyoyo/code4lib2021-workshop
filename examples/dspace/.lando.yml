@@ -61,9 +61,11 @@ tooling:
   copy-solr-cores:
     service: solr
     cmd: cp -r /app/dspace_home/solr/* /var/solr/data/lando/data/ && echo "Solr cores copied successfully!"
+    description: Copies DSpace Solr cores to the Solr data path
   restart-tomcat:
     service: apiserver
     cmd: service restart tomcat
+    description: Restarts Tomcat (faster than lando restart)
   catalina.sh:
     service: apiserver
     cmd: catalina.sh
@@ -71,10 +73,12 @@ tooling:
     service: java
     cmd: mvn
     dir: /app/dspace
+    description: Runs Maven commands on the DSpace apiserver
   ant:
     service: java
     cmd: ant
     dir: /app/dspace/dspace/target/dspace-installer
+    description: Runs Ant commands on the DSpace apiserver
   dspace:
     service: java
     cmd: bin/dspace

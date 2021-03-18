@@ -14,13 +14,35 @@ lando init --full
 ? What do you want to call this app? mydb
 ```
 2. edit the `.lando.yml` file and delete the PHP stuff we won't use
-3. `lando poweroff` just in case
-4. `lando rebuild` build this server
-5. use the `lando db-import` tooling
-6. use the `lando mysql` client tooling
-7. run a destructive query
-8. blow it all away and start from scratch
-9. enjoy your all-purpose MySQL workbench
+3. change the portforward config to use port `3306` instead of `true`
+4. `lando poweroff` just in case
+5. `lando rebuild` build this server
+6. use the `lando db-import` tooling
+```
+lando db-import mysqlsampledatabase.zip
+```
+7. use the `lando mysql` client tooling
+```
+lando mysql
+mysql> show databases;
+mysql> use classicmodels;
+mysql> show tables;
+select * from customers;
+```
+8. run a destructive query
+```
+mysql> select count(*) as total from customers;
+mysql> SET FOREIGN_KEY_CHECKS=0; # I have a bad feeling about this...
+mysql> delete from customers where addressLine2 is null;
+mysql> select count(*) as total from customers; # Oh no!
+```
+9. blow it all away and start from scratch
+```
+lando destroy -y
+lando rebuild -y
+ando db-import mysqlsampledatabase.zip
+```
+10. enjoy your all-purpose MySQL workbench
   - if you're rusty with MySQL, [this is a nice tutorial](https://www.mysqltutorial.org/getting-started-with-mysql/)
 
 ### Extra Credit
