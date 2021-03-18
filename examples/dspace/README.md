@@ -40,7 +40,7 @@ DSpace-specific tooling for this project includes:
 6. `lando restart`
 7. `lando dspace database migrate` (shouldn't be necessary, but is)
 8. `lando dspace create-administrator`
-9. pause to admire your dev APIserver running at:
+9. pause to admire your dev APIserver running at: (`lando info` will tell you)
 10. `lando yarn install`
 11. `lando yarn start`
 
