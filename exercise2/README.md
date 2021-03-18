@@ -25,3 +25,5 @@ lando info
 6. visit the URL that Lando says your app is running at
 7. finish the install steps from the Omeka-S instructions
 8. enjoy your new Omeka-S playground 
+
+**Extra Credit:** try to do a *real* dev environment for Omeka-S where you can work on the Omeka-S source code instead of just use it. Warning: you'll need to install Node.js on the Python appserver image. Here's [an example of how](https://github.com/eScholarship/jschol/blob/master/.lando.yml#L29-L35). The Lando devs promise that Lando 4.0 will make this kind of thing easier. Lando 4.0 will be out in the third quarter of 2021, according to the Lando developers.
