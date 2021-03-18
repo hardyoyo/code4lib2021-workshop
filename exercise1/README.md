@@ -40,7 +40,7 @@ mysql> select count(*) as total from customers; # Oh no!
 ```
 lando destroy -y
 lando rebuild -y
-ando db-import mysqlsampledatabase.zip
+lando db-import mysqlsampledatabase.zip
 ```
 10. enjoy your all-purpose MySQL workbench
   - if you're rusty with MySQL, [this is a nice tutorial](https://www.mysqltutorial.org/getting-started-with-mysql/)
