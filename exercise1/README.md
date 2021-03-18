@@ -1,7 +1,11 @@
 # Exercise 1: MySQL
-### Let's make a database and import a backup from prod
+### Let's make a database and import a backup
 
-1. download a [sample database for MySQL](https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip)
+1. download a [sample database for MySQL](https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip) into the exercize1 folder
+```
+cd exercise1 
+wget https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip
+```
 2. starting up
 ```
 cd exercise1
@@ -14,7 +18,14 @@ lando init --full
 ? What do you want to call this app? mydb
 ```
 2. edit the `.lando.yml` file and delete the PHP stuff we won't use
-3. change the portforward config to use port `3306` instead of `true`
+```
+# delete the recipe line
+# delete the proxy lines
+# delete the appserver lines
+# delete the composer tooling
+# delete the php tooling
+```
+3. change the portforward line to use port `3306` instead of `true`
 4. `lando poweroff` just in case
 5. `lando rebuild` build this server
 6. use the `lando db-import` tooling
