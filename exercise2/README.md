@@ -22,7 +22,7 @@ lando info
 ```
 4. Edit `config/database.ini` entering credentials (hint:`lamp` for everything except host, which is `database`)
 5. `lando restart`
-6. visit the URL that Lando says your app is running at
+6. visit the URL that Lando says your app is running at (`lando info` will tell you)
 7. finish the install steps from the Omeka-S instructions
 8. enjoy your new Omeka-S playground 
 
