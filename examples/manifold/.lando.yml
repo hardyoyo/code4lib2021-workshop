@@ -1,0 +1,73 @@
+---
+name: manifold
+env_file:
+  - environment/defaults.env
+  - environment/local.env
+proxy:
+# TODO
+
+services:
+
+  database:
+    type: postgres:11
+    portforward: 5432
+    creds:
+      user: postgres
+      password:
+      database: manifold_production
+
+  elasticsearch:
+    type: elasticsearch:5.6.7
+
+  redis:
+    type: redis:5
+
+  api_clockwork:
+    type: compose
+    app_mount: delegated
+    services:
+      image: manifoldscholarship/manifold-api:v5.1.4-beta.1
+      volumes:
+        - ./data/api/public:/opt/manifold/api/public
+        - ./data/sockets:/manifold_sockets
+      command:
+        - ./start_and_run
+        - bin/zhong zhong.rb
+
+  api_rails:
+    type: compose
+    app_mount: delegated
+    services:
+      image: manifoldscholarship/manifold-api:v5.1.4-beta.1
+      volumes:
+        - ./data/api/public:/opt/manifold/api/public
+        - ./data/sockets:/manifold_sockets
+      command:
+        - ./start_and_run
+        - bin/puma -C config/puma.rb
+
+  api_sidekiq:
+    type: compose
+    app_mount: delegated
+    services:
+      image: manifoldscholarship/manifold-api:v5.1.4-beta.1
+      volumes:
+        - ./data/api/public:/opt/manifold/api/public
+        - ./data/sockets:/manifold_sockets
+      command:
+        - ./start_and_run
+        - bin/sidekiq
+  client:
+    type: node:14
+    volumes:
+      - ./data/api/public:/opt/manifold/api/public
+      - ./data/sockets:/manifold_sockets
+    build:
+      - yarn install
+    command: yarn run start-docker
+
+
+tooling:
+  psql:
+    service: database
+    cmd: psql -U postgres

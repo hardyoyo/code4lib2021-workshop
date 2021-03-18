@@ -19,7 +19,7 @@ lando init --full
 ```
 2. edit the `.lando.yml` file and delete the PHP stuff we won't use
 ```
-# delete the recipe line
+# delete the recipe lines
 # delete the proxy lines
 # delete the appserver lines
 # delete the composer tooling
