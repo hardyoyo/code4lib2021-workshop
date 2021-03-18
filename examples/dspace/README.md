@@ -43,6 +43,7 @@ DSpace-specific tooling for this project includes:
 9. pause to admire your dev APIserver running at: (`lando info` will tell you)
 10. `lando yarn install`
 11. `lando yarn start`
+12. play with your new DSpace-Angular frontend, pointed at your dev APIserver
 
 ## Tomcat Configuration
 All the tomcat configs are in the `tomcat_config` folder. Edits to them require a `lando restart-tomcat` or a `lando restart` for Tomcat to pick up the changes. If you change the Tomcat version in the landofile, you'll need to copy over the default configs to this folder. You should be able to figure that out on your own, if you're bothering to change the Tomcat version.
