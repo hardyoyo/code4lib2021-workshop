@@ -17,7 +17,7 @@ lando init --full
 ? Where is your webroot relative to the init destination? .
 ? What do you want to call this app? mydb
 ```
-2. edit the `.lando.yml` file and delete the PHP stuff we won't use
+3. edit the `.lando.yml` file and delete the PHP stuff we won't use
 ```
 # delete the recipe lines
 # delete the proxy lines
@@ -25,14 +25,14 @@ lando init --full
 # delete the composer tooling
 # delete the php tooling
 ```
-3. change the portforward line to use port `3306` instead of `true`
-4. `lando poweroff` just in case
-5. `lando rebuild` build this server
-6. use the `lando db-import` tooling
+4. change the portforward line to use port `3306` instead of `true`
+5. `lando poweroff` just in case
+6. `lando rebuild` build this server
+7. use the `lando db-import` tooling
 ```
 lando db-import mysqlsampledatabase.zip
 ```
-7. use the `lando mysql` client tooling
+8. use the `lando mysql` client tooling
 ```
 lando mysql
 mysql> show databases;
@@ -40,20 +40,20 @@ mysql> use classicmodels;
 mysql> show tables;
 select * from customers;
 ```
-8. run a destructive query
+9. run a destructive query
 ```
 mysql> select count(*) as total from customers;
 mysql> SET FOREIGN_KEY_CHECKS=0; # I have a bad feeling about this...
 mysql> delete from customers where addressLine2 is null;
 mysql> select count(*) as total from customers; # Oh no!
 ```
-9. blow it all away and start from scratch
+10. blow it all away and start from scratch
 ```
 lando destroy -y
 lando rebuild -y
 lando db-import mysqlsampledatabase.zip
 ```
-10. enjoy your all-purpose MySQL workbench
+11. enjoy your all-purpose MySQL workbench
   - if you're rusty with MySQL, [this is a nice tutorial](https://www.mysqltutorial.org/getting-started-with-mysql/)
 
 ### Extra Credit
