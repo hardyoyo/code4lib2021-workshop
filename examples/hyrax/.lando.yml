@@ -8,6 +8,8 @@ services:
     ssl: true
     type: 'ruby:2.5'
     overrides:
+      ports:
+        - '3000:3000'
       # Pass SSH auth.
       volumes:
         - type: bind
