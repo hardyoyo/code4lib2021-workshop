@@ -1,0 +1,116 @@
+name: hyrax
+proxy:
+  appserver:
+    - hyrax.local.sandbox
+services:
+  appserver:
+    config: {}
+    ssl: true
+    type: 'ruby:2.5'
+    overrides:
+      # Pass SSH auth.
+      volumes:
+        - type: bind
+          # Linux user: add 'export LANDO_SSH_AUTH_SOCK="${SSH_AUTH_SOCK}' at the end of your ~/.bashrc:
+          # Mac user: MacOS specific path is here as the variable default value, nothing to do.
+          source: "${LANDO_SSH_AUTH_SOCK:-/run/host-services/ssh-auth.sock}"
+          target: /run/host-services/ssh-auth.sock
+      environment:
+        SSH_AUTH_SOCK: "/run/host-services/ssh-auth.sock"
+        GEM_HOME: "/usr/local/bundle"
+        BUNDLE_PATH: "/usr/local/bundle"
+        PATH: "/usr/local/bundle/bin:/usr/local/bundle/gems/bin:${PATH}"
+    build_as_root:
+      - apt-get update -qq
+      - apt-get install -y apt-transport-https
+      - apt-get install -y vim net-tools
+      - curl -sL https://deb.nodesource.com/setup_10.x | bash -
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+      - apt-get update -qq
+      - apt-get autoclean
+      - apt-get install mariadb-client build-essential libpq-dev yarn nodejs -y
+      # - gem install bundler && gem install rails -v 5.2.4.4 && bundle install --quiet && bundle clean
+      - apt-get autoclean
+      - chown www-data:www-data /run/host-services/ssh-auth.sock
+      - chmod g+w /run/host-services/ssh-auth.sock
+    build:
+      - gem install bundler && gem install rails -v 5.2.4.4 && bundle install --quiet && bundle clean
+    scanner: false
+  database:
+    config: {}
+    authentication: mysql_native_password
+    type: mysql
+    portforward: true
+    creds:
+      user: hyrax
+      password: hyrax
+      database: hyrax
+events:
+  post-start:
+    - appserver: test -e ~/.ssh/config || printf 'Host *\n  AddKeysToAgent yes\n' > ~/.ssh/config
+tooling:
+  node:
+    service: appserver
+    description: Runs node commands on the Hyrax appserver
+  npm:
+    service: appserver
+    description: Runs npm commands on the Hyrax appserver
+  yarn:
+    service: appserver
+    description: Runs yarn commands on the Hyrax appserver
+  rails:
+    service: appserver
+    description: Runs rails commands on the Hyrax appserver
+    dir: /app
+  ruby:
+    service: appserver
+    description: Runs ruby commands on the Hyrax appserver
+  gem:
+    service: appserver
+    description: Runs gem commands on the Hyrax appserver
+    user: root
+  bundle:
+    service: appserver
+    description: Runs bundle commands on the Hyrax appserver
+  db-import <file>:
+    service: ':host'
+    description: Imports a dump file into a database service
+    cmd: /helpers/sql-import.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      no-wipe:
+        description: Do not destroy the existing database before an import
+        boolean: true
+  'db-export [file]':
+    service: ':host'
+    description: Exports database from a database service to a file
+    cmd: /helpers/sql-export.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      stdout:
+        description: Dump database to stdout
+  mysql:
+    service: ':host'
+    description: Drops into a MySQL shell on a database service
+    cmd: mysql -uroot
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+  ssh-fix:
+    service: appserver
+    description: Fix ssh auth sock permission for MacOS users. Lando rebuild fixes the problem as well.
+    user: root
