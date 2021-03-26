@@ -1,7 +1,7 @@
 # Exercise 1: MySQL
 ### Let's make a database and import a backup
 
-1. download a [sample database for MySQL](https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip) into the exercize1 folder
+1. download a [sample database for MySQL](https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip) into the exercise1 folder
 ```
 cd exercise1 
 wget https://sp.mysqltutorial.org/wp-content/uploads/2018/03/mysqlsampledatabase.zip
