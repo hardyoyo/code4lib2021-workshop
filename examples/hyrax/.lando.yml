@@ -32,12 +32,12 @@ services:
       - apt-get update -qq
       - apt-get autoclean
       - apt-get install mariadb-client build-essential libpq-dev yarn nodejs -y
-      # - gem install bundler && gem install rails -v 5.2.4.4 && bundle install --quiet && bundle clean
+      - gem install bundler && gem install rails -v 5.2.4.4 && bundle install --quiet && bundle clean
       - apt-get autoclean
       - chown www-data:www-data /run/host-services/ssh-auth.sock
       - chmod g+w /run/host-services/ssh-auth.sock
     build:
-      - gem install bundler && gem install rails -v 5.2.4.4 && bundle install --quiet && bundle clean
+      - gem install bundler && gem install rails -v 5.2.5 && bundle install --quiet && bundle clean
     scanner: false
   database:
     config: {}
