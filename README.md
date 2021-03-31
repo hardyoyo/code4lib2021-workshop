@@ -2,6 +2,9 @@
 
 ## [Code4Lib 2021 Post-conference workshop, March 26, 2021 9am EST](https://2021.code4lib.org/workshops/Learning-as-We-Go-Decomposing-Dev-Environments-with-Lando)
 
+Workshop recording: [https://vimeo.com/531093418](https://vimeo.com/531093418)
+Identifier: [DOI 10.17605/OSF.IO/5KP4G](https://doi.org/10.17605/OSF.IO/5KP4G)
+
 ## Presented by
 
 [Hardy Pottinger](https://github.com/hardyoyo/info)
