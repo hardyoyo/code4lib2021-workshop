@@ -1,0 +1,53 @@
+name: fedora_playground
+config:
+  webroot: .
+services:
+  database:
+    config: {}
+    authentication: mysql_native_password
+    type: mysql
+    portforward: true
+    creds:
+      user: lamp
+      password: lamp
+      database: lamp
+
+  fcrepo:
+    type: compose
+    app_mount: delegated
+    services:
+      user: root
+      image: samvera/fcrepo4:5.1.0
+      command: /fedora-entrypoint.sh
+      volumes:
+        - ./jetty-overrides:/jetty-overrides
+      ports:
+        - '8080'
+    moreHttpPorts:
+        - '8080'
+    scanner: true
+
+tooling:
+  'db-export [file]':
+    service: ':host'
+    description: Exports database from a database service to a file
+    cmd: /helpers/sql-export.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      stdout:
+        description: Dump database to stdout
+  mysql:
+    service: ':host'
+    description: Drops into a MySQL shell on a database service
+    cmd: mysql -uroot
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
