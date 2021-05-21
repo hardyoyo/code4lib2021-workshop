@@ -1,0 +1,91 @@
+name: ojs
+recipe: lamp
+config:
+  webroot: .
+proxy:
+  appserver:
+    - ojs.local.sandbox
+# TODO: run the composer steps as part of the build
+# TODO: install nodejs as part of the build
+# TODO: add node tooling
+
+
+services:
+  appserver:
+    config: {}
+    ssl: true
+    type: 'php:7.3'
+    via: apache
+    xdebug: false
+    webroot: .
+    build_as_root:
+      - apt-get update -qq
+      - apt-get install -y apt-transport-https
+      - apt-get install -y vim net-tools
+      - curl -sL https://deb.nodesource.com/setup_12.x | bash -
+      - curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add -
+      - echo "deb https://dl.yarnpkg.com/debian/ stable main" | tee /etc/apt/sources.list.d/yarn.list
+      - apt-get update -qq
+      - apt-get autoclean
+      - apt-get install mariadb-client build-essential libpq-dev yarn nodejs -y
+      - apt-get autoclean
+    build:
+      - composer --working-dir=lib/pkp install && composer --working-dir=plugins/paymethod/paypal install && composer --working-dir=plugins/generic/citationStyleLanguage install
+      - npm install && npm run build
+  database:
+    config: {}
+    authentication: mysql_native_password
+    type: mysql
+    portforward: true
+    creds:
+      user: lamp
+      password: lamp
+      database: lamp
+tooling:
+  npm:
+    service: appserver
+    cmd: npm
+  
+  composer:
+    service: appserver
+    cmd: composer --ansi
+  db-import <file>:
+    service: ':host'
+    description: Imports a dump file into a database service
+    cmd: /helpers/sql-import.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      no-wipe:
+        description: Do not destroy the existing database before an import
+        boolean: true
+  'db-export [file]':
+    service: ':host'
+    description: Exports database from a database service to a file
+    cmd: /helpers/sql-export.sh
+    user: root
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
+      stdout:
+        description: Dump database to stdout
+  php:
+    service: appserver
+    cmd: php
+  mysql:
+    service: ':host'
+    description: Drops into a MySQL shell on a database service
+    cmd: mysql -uroot
+    options:
+      host:
+        description: The database service to use
+        default: database
+        alias:
+          - h
