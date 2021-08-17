@@ -24,10 +24,14 @@ services:
       ports:
         - '4000:4000'
       environment:
-        DSPACE_HOST: "apiserver.dspace.internal" # The host name of the angular application
-        DSPACE_PORT: "80" # The port number of the angular application
-        DSPACE_NAMESPACE: "server" # The namespace of the angular application
+        DSPACE_HOST: "0.0.0.0" # interface to which Angular should bind
+        DSPACE_PORT: "4000" # The port number of the angular application
+        DSPACE_NAMESPACE: "/" # The namespace of the angular application
         DSPACE_SSL: "false" # Whether the angular application uses SSL [true/false]
+        DSPACE_REST_HOST: "dspace-api.local.sandbox" # The host name of the angular application
+        DSPACE_REST_PORT: "80" # The port number of the REST-API application
+        DSPACE_REST_NAMESPACE: "server" # The namespace of the REST-API application
+        DSPACE_REST_SSL: "false" # Whether the REST-API application uses SSL [true/false]
   solr:
     type: 'solr:8.6'
     portforward: false
